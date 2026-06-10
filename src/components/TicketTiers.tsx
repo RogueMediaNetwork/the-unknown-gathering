@@ -4,9 +4,13 @@
  */
 
 import React, { useState, useEffect } from 'react';
+import { motion } from 'motion/react';
 import { Skull, Check } from 'lucide-react';
 import { TicketTier, LanguageCode } from '../types';
 import { TICKET_TIERS, TRANSLATIONS } from '../data';
+
+// Early Bat (early-bird) pricing runs through the end of August 31, 2026.
+const EARLY_BIRD_DEADLINE = new Date('2026-08-31T23:59:59');
 
 interface TicketTiersProps {
   currentLanguage: LanguageCode;
@@ -21,30 +25,25 @@ export default function TicketTiers({
 }: TicketTiersProps) {
   const t = TRANSLATIONS[currentLanguage] || TRANSLATIONS['en'];
 
-  // Early Bird ticking countdown simulation
-  const [timeLeft, setTimeLeft] = useState({
-    days: 4,
-    hours: 8,
-    minutes: 19,
-    seconds: 52
-  });
+  // Live countdown to the Early Bat pricing deadline (Aug 31, 2026).
+  const calcTimeLeft = () => {
+    const diff = EARLY_BIRD_DEADLINE.getTime() - Date.now();
+    if (diff <= 0) {
+      return { days: 0, hours: 0, minutes: 0, seconds: 0, expired: true };
+    }
+    return {
+      days: Math.floor(diff / 86400000),
+      hours: Math.floor((diff / 3600000) % 24),
+      minutes: Math.floor((diff / 60000) % 60),
+      seconds: Math.floor((diff / 1000) % 60),
+      expired: false
+    };
+  };
+
+  const [timeLeft, setTimeLeft] = useState(calcTimeLeft);
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setTimeLeft(prev => {
-        if (prev.seconds > 0) {
-          return { ...prev, seconds: prev.seconds - 1 };
-        } else if (prev.minutes > 0) {
-          return { ...prev, minutes: prev.minutes - 1, seconds: 59 };
-        } else if (prev.hours > 0) {
-          return { ...prev, hours: prev.hours - 1, minutes: 59, seconds: 59 };
-        } else if (prev.days > 0) {
-          return { ...prev, days: prev.days - 1, hours: 23, minutes: 59, seconds: 59 };
-        }
-        return prev; // Stay 0
-      });
-    }, 1000);
-
+    const interval = setInterval(() => setTimeLeft(calcTimeLeft()), 1000);
     return () => clearInterval(interval);
   }, []);
 
@@ -63,6 +62,9 @@ export default function TicketTiers({
           <h4 className="font-mono text-xl text-[#ffffff] uppercase tracking-wide mt-1 font-semibold">
             {currentLanguage === 'spooky' ? '⏱ COUNTDOWN TO THE RETRIBUTION ⏱' : '🔥 LIMITED-TIME DISCOUNT LOCK'}
           </h4>
+          <p className="font-mono text-[10px] text-zinc-400 uppercase tracking-wider mt-1">
+            {timeLeft.expired ? 'Early Bat pricing has ended' : 'Early Bat pricing ends August 31, 2026'}
+          </p>
         </div>
 
         {/* Live Timer */}
@@ -90,18 +92,29 @@ export default function TicketTiers({
       </div>
 
       {/* Grid structure of cards */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto px-4">
+      <motion.div
+        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto px-4"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.2 }}
+        variants={{ visible: { transition: { staggerChildren: 0.12 } } }}
+      >
         {TICKET_TIERS.map((tier) => {
           const isSelected = selectedTierId === tier.id;
           const isLowStock = tier.remainingStock < 25;
 
           return (
-            <div
+            <motion.div
               key={tier.id}
               id={`ticket-card-${tier.id}`}
-              className={`rounded-lg border text-left p-6 flex flex-col justify-between transition-all duration-300 relative overflow-hidden bg-zinc-950/40 backdrop-blur-sm shadow-xl ${
-                isSelected 
-                  ? 'border-red-600 bg-red-950/5 shadow-red-950/10 scale-[1.02] ring-1 ring-red-500/20' 
+              variants={{
+                hidden: { opacity: 0, y: 28 },
+                visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: 'easeOut' } }
+              }}
+              whileHover={{ y: -6, transition: { duration: 0.2, ease: 'easeOut' } }}
+              className={`rounded-lg border text-left p-6 flex flex-col justify-between transition-colors duration-300 relative overflow-hidden bg-zinc-950/40 backdrop-blur-sm shadow-xl ${
+                isSelected
+                  ? 'border-red-600 bg-red-950/5 shadow-red-950/10 ring-1 ring-red-500/20'
                   : 'border-yellow-950/10 hover:border-red-950/60 hover:bg-[#07070a]/60'
               }`}
             >
@@ -112,8 +125,8 @@ export default function TicketTiers({
                 </span>
               )}
 
-              {/* VIP Sparkles Badge */}
-              {!tier.isEarlyBird && tier.id.includes('elite') && (
+              {/* Top-tier Collector Badge */}
+              {tier.id === 'collector' && (
                 <span className="absolute top-3 right-3 bg-orange-950/60 text-orange-400 font-mono text-[9px] uppercase px-1.5 py-0.5 rounded tracking-widest border border-orange-800">
                   🔥 SUPREME COVEN
                 </span>
@@ -184,10 +197,10 @@ export default function TicketTiers({
                   ? (currentLanguage === 'spooky' ? '✓ SHACKLED TO REGISTER' : '✓ SELECTED FOR INITIATION') 
                   : (currentLanguage === 'spooky' ? 'SACRIFICE PASS' : 'SELECT PASS')}
               </button>
-            </div>
+            </motion.div>
           );
         })}
-      </div>
+      </motion.div>
     </div>
   );
 }

@@ -8,64 +8,47 @@ import { TicketTier, Speaker, EventSession, LanguageCode } from './types';
 export const TICKET_TIERS: TicketTier[] = [
   {
     id: 'early_bird',
-    name: 'Early Bird Cosmos Pass',
-    description: 'Discounted access for early-registering seekers of the unknown. Full entry into all standard exhibit halls, general panels, and skywatching decks.',
-    originalPrice: 75,
-    currentPrice: 49,
+    name: 'Early Bat Pass',
+    description: 'Our discounted early-registration rate for seekers who swoop in before the doors open. General admission entry to The Unknown Gathering at the Waco PACC.',
+    originalPrice: 39,
+    currentPrice: 29,
     isEarlyBird: true,
     perks: [
-      'General Admission seating',
-      'The Unknown swag merch starter pack',
-      'Standard access to the Waco Gathering Exhibit Hall'
+      'General admission seating',
+      'The Unknown Gathering swag bag',
+      'Standard access to the Waco PACC exhibit hall'
     ],
-    remainingStock: 24,
+    remainingStock: 18,
     totalStock: 100
   },
   {
     id: 'standard',
-    name: 'Anomaly Standard Pass',
-    description: 'General admission registration. Provides entry to all general panels, exhibition floors, evening cryptid hunts, and UFO night watches.',
-    originalPrice: 85,
-    currentPrice: 75,
+    name: 'Day of Terror Pass',
+    description: 'Standard day-of admission. Everything in the Early Bat Pass plus full access to the vendor floor and your electronic certificate of unexplained encounter.',
+    originalPrice: 49,
+    currentPrice: 39,
     isEarlyBird: false,
     perks: [
-      'Standard general admission entry',
+      'Everything in the Early Bat Pass',
       'Access to 25+ Unknown & Mystery vendor booths',
       'Electronic certificate of unexplained encounter'
     ],
-    remainingStock: 142,
+    remainingStock: 140,
     totalStock: 250
   },
   {
-    id: 'vip_forensics',
-    name: 'VIP Forensics Pass',
-    description: 'Priority access for serious investigators. Front-row seating at all keynote panels plus hands-on entry to the restricted Forensics Vault sessions.',
-    originalPrice: 199,
-    currentPrice: 149,
+    id: 'collector',
+    name: 'Your Ultimate Demise Pass',
+    description: 'The full experience. Everything in the Early Bat and Day of Terror passes, plus exclusive collector merch you can only get with this tier.',
+    originalPrice: 79,
+    currentPrice: 59,
     isEarlyBird: false,
     perks: [
-      'Reserved front-row keynote seating',
-      'Restricted access to the Forensics Vault workshops',
-      'Limited-edition evidence-file dossier & lanyard',
-      'Priority touchless check-in lane'
+      'Everything in the Day of Terror Pass',
+      'Official Unknown Gathering t-shirt (a $30 value)',
+      'Exclusive collector signed print'
     ],
-    remainingStock: 38,
-    totalStock: 80
-  },
-  {
-    id: 'elite_cryptid',
-    name: 'Elite Cryptid Pass',
-    description: 'The supreme all-access tier. Everything in VIP plus the after-dark cryptid night hunt, the private speaker reception, and the collector relic crate.',
-    originalPrice: 399,
-    currentPrice: 299,
-    isEarlyBird: false,
-    perks: [
-      'All VIP Forensics perks included',
-      'After-dark guided cryptid night hunt',
-      'Private reception with keynote speakers',
-      'Exclusive collector relic crate & signed print'
-    ],
-    remainingStock: 11,
+    remainingStock: 12,
     totalStock: 40
   }
 ];
