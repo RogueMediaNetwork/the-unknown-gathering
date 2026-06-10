@@ -1,0 +1,53 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Special+Elite&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-gothic: "Cinzel Decorative", serif;
+  --font-typewriter: "Special Elite", monospace;
+  --font-sans: "Plus Jakarta Sans", sans-serif;
+}
+
+/* Custom visual glow keyframe animations for the haunting coven layout */
+@keyframes scanner-sweep-gothic {
+  0% {
+    top: 5%;
+    opacity: 0.3;
+  }
+  50% {
+    top: 95%;
+    opacity: 1;
+    transform: scaleX(1.05);
+  }
+  100% {
+    top: 5%;
+    opacity: 0.3;
+  }
+}
+
+.animate-scanner-sweep {
+  animation: scanner-sweep-gothic 3s infinite ease-in-out;
+}
+
+/* Customized scrollbar design for the persistent notifications pane */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 4px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: #030304;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #3f0909;
+  border-radius: 9px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #7f1d1d;
+}
+
+/* Beautiful gothic visual styles */
+.gothic-title {
+  font-family: var(--font-gothic);
+}
+
+.typewriter-text {
+  font-family: var(--font-typewriter);
+}
