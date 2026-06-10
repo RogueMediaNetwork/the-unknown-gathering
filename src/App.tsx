@@ -452,11 +452,13 @@ export default function App() {
                   {/* Glowing neon green border hover lines */}
                   <div className="absolute inset-0 border border-green-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-xl pointer-events-none"></div>
 
-                  <img
+                  <motion.img
                     src="/unknown_gathering_hero_1780056577978.png"
                     alt="The Unknown Gathering official cover featuring UFO abduction beam, Bigfoot shadow, and crime scene noir aesthetics"
-                    className="w-full aspect-video md:aspect-[4/3] object-cover rounded-lg filter saturate-75 grayscale-[25%] group-hover:grayscale-0 transition-all duration-700 pointer-events-none"
+                    className="w-full aspect-video md:aspect-[4/3] object-cover rounded-lg filter saturate-75 grayscale-[25%] group-hover:grayscale-0 transition-[filter] duration-700 pointer-events-none"
                     referrerPolicy="no-referrer"
+                    animate={{ y: [0, -6, 0], scale: [1.04, 1.06, 1.04] }}
+                    transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
                   />
 
                   {/* Decorative digital overlay coordinates */}
