@@ -694,6 +694,126 @@
     height: 1px;
     background: linear-gradient(90deg, transparent, var(--blood), transparent);
   }
+
+  /* ── PAPERWORK CARD + MODAL ── */
+  .rule-card.rule-card-action {
+    cursor: pointer;
+    transition: border-color 0.3s, transform 0.3s, background 0.3s;
+  }
+  .rule-card.rule-card-action:hover {
+    border-left-color: var(--gold);
+    background: rgba(139,0,0,0.06);
+    transform: translateY(-3px);
+  }
+  .rule-cta {
+    font-family: 'Cutive Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-top: 0.9rem;
+  }
+
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 200;
+    background: rgba(5,5,5,0.85);
+    backdrop-filter: blur(4px);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+  }
+  .modal-overlay.open { display: flex; }
+  .modal {
+    background: linear-gradient(160deg, #141011, var(--dark));
+    border: 1px solid var(--blood);
+    max-width: 640px;
+    width: 100%;
+    max-height: 88vh;
+    overflow-y: auto;
+    padding: 2.5rem;
+    position: relative;
+    animation: fadeUp 0.4s ease both;
+  }
+  .modal-close {
+    position: absolute;
+    top: 1rem; right: 1.2rem;
+    background: none;
+    border: none;
+    color: rgba(245,240,232,0.5);
+    font-size: 1.6rem;
+    line-height: 1;
+    cursor: pointer;
+    font-family: 'Oswald', sans-serif;
+    transition: color 0.2s;
+  }
+  .modal-close:hover { color: var(--blood-bright); }
+  .modal-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.4rem;
+    letter-spacing: 0.05em;
+    color: var(--bone);
+    margin: 0.3rem 0 0.5rem;
+    line-height: 1;
+  }
+  .modal-intro {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 300;
+    font-size: 0.85rem;
+    color: rgba(245,240,232,0.6);
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+  }
+  .form-list { list-style: none; }
+  .form-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+    padding: 1rem 0;
+    border-top: 1px solid rgba(245,240,232,0.08);
+  }
+  .form-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.25rem;
+    letter-spacing: 0.04em;
+    color: var(--bone);
+  }
+  .form-sub {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 300;
+    font-size: 0.72rem;
+    color: rgba(245,240,232,0.45);
+    margin-top: 0.1rem;
+  }
+  .form-actions { display: flex; gap: 0.6rem; flex-shrink: 0; }
+  .form-btn {
+    font-family: 'Cutive Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    border: 1px solid rgba(245,240,232,0.25);
+    color: var(--bone);
+    transition: border-color 0.2s, background 0.2s, color 0.2s;
+  }
+  .form-btn:hover { border-color: var(--blood-bright); color: var(--blood-bright); }
+  .form-btn-solid { background: var(--blood); border-color: var(--blood); }
+  .form-btn-solid:hover { background: var(--blood-bright); border-color: var(--blood-bright); color: var(--bone); }
+  .modal-note {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 300;
+    font-size: 0.72rem;
+    color: rgba(245,240,232,0.4);
+    line-height: 1.6;
+    margin-top: 1.5rem;
+    border-top: 1px solid rgba(245,240,232,0.08);
+    padding-top: 1rem;
+  }
 </style>
 </head>
 <body>
@@ -863,10 +983,11 @@
       <div class="rule-title">Format: MP4 / H.264</div>
       <div class="rule-text">MP4 (preferred), H.264 encoded, 1080p resolution recommended. Files that cannot be screened may be disqualified.</div>
     </div>
-    <div class="rule-card">
+    <div class="rule-card rule-card-action" id="paperwork-card" role="button" tabindex="0" aria-haspopup="dialog" aria-controls="paperwork-modal">
       <div class="rule-icon">📄</div>
       <div class="rule-title">Required Paperwork</div>
       <div class="rule-text">Talent &amp; crew release forms, location agreements, music releases, and any applicable stock footage licenses must be obtained by the filmmaker.</div>
+      <div class="rule-cta">▾ Click to view &amp; download forms</div>
     </div>
     <div class="rule-card">
       <div class="rule-icon">⚖️</div>
@@ -935,6 +1056,59 @@
   </div>
 </section>
 
+<!-- PAPERWORK MODAL -->
+<div class="modal-overlay" id="paperwork-modal" aria-hidden="true">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="paperwork-modal-title">
+    <button class="modal-close" id="paperwork-close" aria-label="Close">&times;</button>
+    <div class="section-label">// Required Paperwork</div>
+    <div class="modal-title" id="paperwork-modal-title">DOWNLOAD THE FORMS</div>
+    <p class="modal-intro">Obtain and complete the forms that apply to your production. Bring completed copies to the Kickoff Mixer or have them available on request. Each form opens as a printable PDF.</p>
+    <ul class="form-list">
+      <li class="form-row">
+        <div class="form-meta">
+          <div class="form-name">Talent &amp; Crew Release</div>
+          <div class="form-sub">One per performer &amp; crew member</div>
+        </div>
+        <div class="form-actions">
+          <a class="form-btn" href="/forms/horrify-talent-crew-release.pdf" target="_blank" rel="noopener">View</a>
+          <a class="form-btn form-btn-solid" href="/forms/horrify-talent-crew-release.pdf" download>Download</a>
+        </div>
+      </li>
+      <li class="form-row">
+        <div class="form-meta">
+          <div class="form-name">Location Agreement &amp; Release</div>
+          <div class="form-sub">One per filming location</div>
+        </div>
+        <div class="form-actions">
+          <a class="form-btn" href="/forms/horrify-location-agreement.pdf" target="_blank" rel="noopener">View</a>
+          <a class="form-btn form-btn-solid" href="/forms/horrify-location-agreement.pdf" download>Download</a>
+        </div>
+      </li>
+      <li class="form-row">
+        <div class="form-meta">
+          <div class="form-name">Music Release &amp; Sync License</div>
+          <div class="form-sub">One per piece of music used</div>
+        </div>
+        <div class="form-actions">
+          <a class="form-btn" href="/forms/horrify-music-release.pdf" target="_blank" rel="noopener">View</a>
+          <a class="form-btn form-btn-solid" href="/forms/horrify-music-release.pdf" download>Download</a>
+        </div>
+      </li>
+      <li class="form-row">
+        <div class="form-meta">
+          <div class="form-name">Stock Footage &amp; Materials License</div>
+          <div class="form-sub">One per licensed third-party asset</div>
+        </div>
+        <div class="form-actions">
+          <a class="form-btn" href="/forms/horrify-stock-footage-license.pdf" target="_blank" rel="noopener">View</a>
+          <a class="form-btn form-btn-solid" href="/forms/horrify-stock-footage-license.pdf" download>Download</a>
+        </div>
+      </li>
+    </ul>
+    <p class="modal-note">These are template forms provided for convenience and are not legal advice. Filmmakers are responsible for ensuring their paperwork is complete and complies with applicable law.</p>
+  </div>
+</div>
+
 <!-- FOOTER -->
 <footer>
   <div class="footer-title">HORRIFY: A FILM SPEED RUN</div>
@@ -983,6 +1157,26 @@ const observer = new IntersectionObserver((entries) => {
   entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
 }, { threshold: 0.1 });
 document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// Required Paperwork modal
+const pwCard = document.getElementById('paperwork-card');
+const pwModal = document.getElementById('paperwork-modal');
+const pwClose = document.getElementById('paperwork-close');
+function openPaperwork() {
+  pwModal.classList.add('open');
+  pwModal.setAttribute('aria-hidden', 'false');
+}
+function closePaperwork() {
+  pwModal.classList.remove('open');
+  pwModal.setAttribute('aria-hidden', 'true');
+}
+pwCard.addEventListener('click', openPaperwork);
+pwCard.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openPaperwork(); }
+});
+pwClose.addEventListener('click', closePaperwork);
+pwModal.addEventListener('click', (e) => { if (e.target === pwModal) closePaperwork(); });
+document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closePaperwork(); });
 </script>
 </body>
 </html>
