@@ -133,6 +133,65 @@
       3px 3px 0 rgba(80,0,0,0.6);
   }
 
+  /* ── LOGO GLITCH (on/off flicker + RGB tear) ── */
+  .title-main {
+    animation: logo-flicker 5s infinite steps(1, end);
+  }
+  .title-main span {
+    position: relative;
+    z-index: 2;
+  }
+  .title-main::before,
+  .title-main::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    pointer-events: none;
+    opacity: 0;
+    z-index: 1;
+  }
+  .title-main::before { color: #2ad4ff; animation: logo-glitch-1 5s infinite; }
+  .title-main::after  { color: var(--blood-bright); animation: logo-glitch-2 5s infinite; }
+
+  @keyframes logo-flicker {
+    0%, 16%, 24%, 59%, 67%, 100% { opacity: 1; }
+    18% { opacity: 0.35; }
+    20% { opacity: 1; }
+    22% { opacity: 0.55; }
+    61% { opacity: 0.25; }
+    63% { opacity: 1; }
+    65% { opacity: 0.6; }
+  }
+  @keyframes logo-glitch-1 {
+    0%, 17%, 23%, 60%, 66%, 100% { opacity: 0; transform: translate(0,0); clip-path: inset(0 0 100% 0); }
+    18% { opacity: 0.85; transform: translate(-5px,-2px); clip-path: inset(8% 0 58% 0); }
+    20% { opacity: 0.85; transform: translate(4px,1px);   clip-path: inset(45% 0 22% 0); }
+    22% { opacity: 0.85; transform: translate(-3px,2px);  clip-path: inset(70% 0 8% 0); }
+    61% { opacity: 0.85; transform: translate(5px,2px);   clip-path: inset(20% 0 50% 0); }
+    63% { opacity: 0.85; transform: translate(-4px,-1px); clip-path: inset(62% 0 12% 0); }
+    65% { opacity: 0.85; transform: translate(3px,1px);   clip-path: inset(35% 0 38% 0); }
+  }
+  @keyframes logo-glitch-2 {
+    0%, 17%, 23%, 60%, 66%, 100% { opacity: 0; transform: translate(0,0); clip-path: inset(0 0 100% 0); }
+    18% { opacity: 0.8; transform: translate(5px,2px);   clip-path: inset(15% 0 50% 0); }
+    20% { opacity: 0.8; transform: translate(-4px,-1px); clip-path: inset(55% 0 15% 0); }
+    22% { opacity: 0.8; transform: translate(3px,-2px);  clip-path: inset(30% 0 45% 0); }
+    61% { opacity: 0.8; transform: translate(-5px,-2px); clip-path: inset(10% 0 60% 0); }
+    63% { opacity: 0.8; transform: translate(4px,1px);   clip-path: inset(68% 0 10% 0); }
+    65% { opacity: 0.8; transform: translate(-3px,-1px); clip-path: inset(40% 0 33% 0); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .title-main,
+    .title-main::before,
+    .title-main::after { animation: none; }
+    .title-main::before,
+    .title-main::after { opacity: 0; }
+  }
+
   .subtitle {
     font-family: 'Special Elite', cursive;
     font-size: clamp(1rem, 2.5vw, 1.5rem);
@@ -832,7 +891,7 @@
   <div class="drips" id="drips"></div>
   <div class="presented-by">Presented by Waco Independent Film Festival &nbsp;×&nbsp; The PACC &nbsp;×&nbsp; Rogue Media Network</div>
   <div class="title-block">
-    <div class="title-main"><span>HORRIFY</span></div>
+    <div class="title-main" data-text="HORRIFY"><span>HORRIFY</span></div>
     <div class="subtitle">A Film Speed Run</div>
   </div>
   <div class="tagline">No Extensions. No Excuses. Just Twelve Days of Horror-Fueled Filmmaking.</div>
