@@ -32,8 +32,8 @@ jobs:
       - name: Deploy dist/ to public_html via FTPS
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
-          server: ${{ secrets.FTP_SERVER }}
-          username: ${{ secrets.FTP_USERNAME }}
+          server: ftp.ugcontx.com
+          username: claude@ugcontx.com
           password: ${{ secrets.FTP_PASSWORD }}
           protocol: ftps
           port: 21
