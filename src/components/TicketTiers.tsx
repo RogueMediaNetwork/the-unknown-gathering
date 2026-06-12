@@ -102,6 +102,8 @@ export default function TicketTiers({
         {TICKET_TIERS.map((tier) => {
           const isSelected = selectedTierId === tier.id;
           const isLowStock = tier.remainingStock < 25;
+          // Early Bat pricing closes once the deadline passes — tier becomes unselectable.
+          const isClosed = tier.isEarlyBird && timeLeft.expired;
 
           return (
             <motion.div
@@ -111,18 +113,26 @@ export default function TicketTiers({
                 hidden: { opacity: 0, y: 28 },
                 visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: 'easeOut' } }
               }}
-              whileHover={{ y: -6, transition: { duration: 0.2, ease: 'easeOut' } }}
+              whileHover={isClosed ? undefined : { y: -6, transition: { duration: 0.2, ease: 'easeOut' } }}
               className={`rounded-lg border text-left p-6 flex flex-col justify-between transition-colors duration-300 relative overflow-hidden bg-zinc-950/40 backdrop-blur-sm shadow-xl ${
+                isClosed ? 'opacity-50' : ''
+              } ${
                 isSelected
                   ? 'border-red-600 bg-red-950/5 shadow-red-950/10 ring-1 ring-red-500/20'
                   : 'border-yellow-950/10 hover:border-red-950/60 hover:bg-[#07070a]/60'
               }`}
             >
-              {/* Early Bird Badge */}
+              {/* Early Bird Badge — flips to "pricing ended" after the deadline */}
               {tier.isEarlyBird && (
-                <span className="absolute top-3 right-3 bg-red-900/60 text-red-400 font-mono text-[9px] uppercase px-1.5 py-0.5 rounded tracking-widest border border-red-800">
-                  ⚡ EARLY SEALS
-                </span>
+                isClosed ? (
+                  <span className="absolute top-3 right-3 bg-zinc-800/80 text-zinc-400 font-mono text-[9px] uppercase px-1.5 py-0.5 rounded tracking-widest border border-zinc-700">
+                    ✖ PRICING ENDED
+                  </span>
+                ) : (
+                  <span className="absolute top-3 right-3 bg-red-900/60 text-red-400 font-mono text-[9px] uppercase px-1.5 py-0.5 rounded tracking-widest border border-red-800">
+                    ⚡ EARLY SEALS
+                  </span>
+                )
               )}
 
               {/* Top-tier Collector Badge */}
@@ -187,15 +197,20 @@ export default function TicketTiers({
               <button
                 id={`btn-select-tier-${tier.id}`}
                 onClick={() => onSelectTier(tier)}
-                className={`w-full py-2.5 rounded font-mono text-xs uppercase tracking-wider transition-colors cursor-pointer ${
-                  isSelected
-                    ? 'bg-red-700 text-white hover:bg-red-600'
-                    : 'bg-zinc-900 text-gray-300 border border-gray-800 hover:border-red-950 hover:bg-black hover:text-white'
+                disabled={isClosed}
+                className={`w-full py-2.5 rounded font-mono text-xs uppercase tracking-wider transition-colors ${
+                  isClosed
+                    ? 'bg-zinc-900/60 text-zinc-600 border border-zinc-800 cursor-not-allowed'
+                    : isSelected
+                      ? 'bg-red-700 text-white hover:bg-red-600 cursor-pointer'
+                      : 'bg-zinc-900 text-gray-300 border border-gray-800 hover:border-red-950 hover:bg-black hover:text-white cursor-pointer'
                 }`}
               >
-                {isSelected 
-                  ? (currentLanguage === 'spooky' ? '✓ SHACKLED TO REGISTER' : '✓ SELECTED FOR INITIATION') 
-                  : (currentLanguage === 'spooky' ? 'SACRIFICE PASS' : 'SELECT PASS')}
+                {isClosed
+                  ? (currentLanguage === 'spooky' ? '⛧ THE BATS HAVE FLOWN ⛧' : 'EARLY BAT PRICING ENDED')
+                  : isSelected
+                    ? (currentLanguage === 'spooky' ? '✓ SHACKLED TO REGISTER' : '✓ SELECTED FOR INITIATION')
+                    : (currentLanguage === 'spooky' ? 'SACRIFICE PASS' : 'SELECT PASS')}
               </button>
             </motion.div>
           );
