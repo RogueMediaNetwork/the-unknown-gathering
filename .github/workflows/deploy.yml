@@ -38,4 +38,6 @@ jobs:
           protocol: ftps
           port: 21
           local-dir: ./dist/
-          server-dir: public_html/
+          # The dedicated FTP account 8b89f4ff@ugcontx.com is rooted at public_html,
+          # so deploy to its root.
+          server-dir: ./
