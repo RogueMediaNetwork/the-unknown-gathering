@@ -734,7 +734,24 @@
     transition: color 0.2s;
   }
   .nav-links a:hover { color: var(--bone); }
+  .nav-links a.nav-home { color: var(--gold); }
+  .nav-links a.nav-home:hover { color: var(--blood-bright); }
   @media (max-width: 600px) { .nav-links { display: none; } }
+
+  .footer-back { margin-bottom: 1.4rem; }
+  .footer-back a {
+    font-family: 'Cutive Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gold);
+    text-decoration: none;
+    border: 1px solid rgba(201,168,76,0.3);
+    padding: 0.55rem 1.2rem;
+    display: inline-block;
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .footer-back a:hover { color: var(--bone); border-color: var(--blood-bright); }
 
   /* Scroll fade-in */
   .reveal {
@@ -880,6 +897,7 @@
 <nav>
   <div class="nav-logo">HORRIFY</div>
   <ul class="nav-links">
+    <li><a href="/" class="nav-home">⛧ Unknown Gathering</a></li>
     <li><a href="#rules">Rules</a></li>
     <li><a href="#prize">Prize</a></li>
     <li><a href="#contact">Contact</a></li>
@@ -1173,6 +1191,7 @@
   <div class="footer-title">HORRIFY: A FILM SPEED RUN</div>
   <div class="footer-presented">Presented by</div>
   <div class="footer-partners">Waco Independent Film Festival &nbsp;·&nbsp; The PACC &nbsp;·&nbsp; Rogue Media Network</div>
+  <div class="footer-back"><a href="/">↩ Back to The Unknown Gathering — Oct 10, Waco</a></div>
   <div class="footer-rule">
     SEP 26 — KICKOFF &nbsp;|&nbsp; OCT 8 — FILMS DUE 11:59 PM &nbsp;|&nbsp; OCT 10 — SCREENING &amp; AWARDS<br>
     No Extensions. No Excuses. Just Twelve Days of Horror-Fueled Filmmaking.

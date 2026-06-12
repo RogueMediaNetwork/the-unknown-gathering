@@ -191,12 +191,10 @@ export default function Navigation({
             <a
               id="nav-link-horrify"
               href="/horrify.html"
-              target="_blank"
-              rel="noopener noreferrer"
               title="HORRIFY: A Film Speed Run — films screened at The Unknown Gathering"
               className="px-3 py-2 rounded-md text-xs font-mono tracking-wider uppercase transition-all duration-300 text-red-400 border border-red-900/40 hover:text-white hover:bg-red-900/40"
             >
-              🎬 Horrify Film Run ↗
+              🎬 Horrify Film Run
             </a>
           </div>
 
@@ -298,12 +296,10 @@ export default function Navigation({
           </button>
           <a
             href="/horrify.html"
-            target="_blank"
-            rel="noopener noreferrer"
             onClick={() => setMobileMenuOpen(false)}
             className="block w-full text-left px-3 py-2 rounded-md text-sm font-mono uppercase text-red-400 border border-red-900/40 hover:text-white hover:bg-red-900/40"
           >
-            🎬 Horrify Film Run ↗
+            🎬 Horrify Film Run
           </a>
         </div>
       )}

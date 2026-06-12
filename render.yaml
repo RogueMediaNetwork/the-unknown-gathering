@@ -1,0 +1,11 @@
+# Render Blueprint — https://render.com/docs/blueprint-spec
+# Deploys The Unknown Gathering as a static site (Vite build output in ./dist).
+services:
+  - type: web
+    name: the-unknown-gathering
+    runtime: static
+    buildCommand: npm install && npm run build
+    staticPublishPath: ./dist
+    envVars:
+      - key: NODE_VERSION
+        value: "20"

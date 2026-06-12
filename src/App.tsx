@@ -10,6 +10,7 @@ import { Skull, ShieldCheck, MapPin, Calendar, Lock } from 'lucide-react';
 import { TicketTier, Attendee, AuditLog, LanguageCode } from './types';
 import { TRANSLATIONS } from './data';
 
+import SplashScreen from './components/SplashScreen';
 import Navigation from './components/Navigation';
 import NotificationsPanel from './components/NotificationsPanel';
 import TicketTiers from './components/TicketTiers';
@@ -359,6 +360,9 @@ export default function App() {
 
   return (
     <div id="app-canvas-container" className="bg-[#030304] text-zinc-300 min-h-screen relative overflow-x-hidden font-sans select-none pb-20 selection:bg-red-800 selection:text-white">
+
+      {/* Intro splash (once per session) */}
+      <SplashScreen />
       
       {/* Immersive Eerie Dark Atmospheric Grid background styling */}
       <div className="absolute inset-0 bg-[radial-gradient(#1a0505_1px,transparent_1px)] [background-size:24px_24px] opacity-25 pointer-events-none"></div>
