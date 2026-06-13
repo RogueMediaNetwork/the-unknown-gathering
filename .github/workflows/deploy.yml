@@ -38,6 +38,5 @@ jobs:
           protocol: ftps
           port: 21
           local-dir: ./dist/
-          # The dedicated FTP account 8b89f4ff@ugcontx.com is rooted at public_html,
-          # so deploy to its root.
-          server-dir: ./
+          # The FTP account is rooted at the cPanel home dir, so target public_html.
+          server-dir: public_html/
