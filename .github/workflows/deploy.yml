@@ -33,10 +33,11 @@ jobs:
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
           server: ftp.ugcontx.com
-          username: claude@ugcontx.com
+          username: 8b89f4ff@ugcontx.com
           password: ${{ secrets.FTP_PASSWORD }}
           protocol: ftps
           port: 21
           local-dir: ./dist/
-          # FTP account is rooted at public_html, so deploy to its root.
-          server-dir: ./
+          # 8b89f4ff@ugcontx.com is rooted at the home dir (/home/ugcorfki),
+          # so target public_html (the real web root) beneath it.
+          server-dir: public_html/
