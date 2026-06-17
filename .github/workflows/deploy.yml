@@ -33,7 +33,7 @@ jobs:
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
           server: ftp.ugcontx.com
-          username: 8b89f4ff@ugcontx.com
+          username: ugcorfki
           password: ${{ secrets.FTP_PASSWORD }}
           protocol: ftps
           port: 21
