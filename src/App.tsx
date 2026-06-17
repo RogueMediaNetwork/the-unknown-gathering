@@ -419,15 +419,15 @@ export default function App() {
                 </p>
 
                 <p className="typewriter-text text-xs text-[#a0a0ab] tracking-wider leading-relaxed bg-[#0b0c10] p-4 border border-zinc-900 rounded select-all font-mono">
-                  VENUE LOCALE: Downtown PACC & Skyline Observatory Dome
+                  VENUE LOCALE: Downtown Waco, Texas — The PACC · GPS 31.5556°N 97.1290°W
                   <br />
-                  DOORS UNLOCK: October 10th, 08:30 AM (Central Standard Time)
+                  DOORS UNLOCK: October 10th, 10:00 AM (Central Standard Time) · 1500 ZULU
                   <br />
                   VAULT SAFEGUARD: GDPR Article 32 Standards • Double-Factor Verified
                 </p>
 
                 <p className="text-zinc-400 text-sm leading-relaxed max-w-xl font-sans text-justify">
-                  Embark on the ultimate gathering of UFO researchers, cryptid hunters, paranormal investigators, true crime analysts, and horror enthusiasts. Explore anomalous aerial sightings, track elusive forest legends, decode forensic cold cases, and reveal cosmic mysteries inside Waco's convention halls.
+                  Embark on the ultimate gathering of UFO researchers, cryptid hunters, paranormal investigators, true crime analysts, and horror enthusiasts. Explore anomalous aerial sightings, track elusive forest legends, decode forensic cold cases, and reveal cosmic mysteries inside Waco's The PACC (EARTH).
                 </p>
 
                 {/* Primary Anchor Link button */}
