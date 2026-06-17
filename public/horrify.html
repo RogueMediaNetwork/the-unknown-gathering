@@ -890,7 +890,65 @@
     border-top: 1px solid rgba(245,240,232,0.08);
     padding-top: 1rem;
   }
+
+  /* ── REGISTRATION FORM ── */
+  .nav-links a.nav-register { color: var(--blood-bright); }
+  .nav-links a.nav-register:hover { color: var(--bone); }
+  .reg-intro {
+    font-family: 'Oswald', sans-serif; font-weight: 300; font-size: 0.95rem;
+    color: rgba(245,240,232,0.65); line-height: 1.7; max-width: 640px; margin-top: 1.2rem;
+  }
+  .reg-form { margin-top: 2.5rem; max-width: 720px; }
+  .reg-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.3rem; }
+  @media (max-width: 640px) { .reg-grid { grid-template-columns: 1fr; } }
+  .reg-field { display: flex; flex-direction: column; gap: 0.45rem; }
+  .reg-field.full { grid-column: 1 / -1; }
+  .reg-label {
+    font-family: 'Cutive Mono', monospace; font-size: 0.68rem; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--cyan-dim);
+  }
+  .reg-label .req { color: var(--red); }
+  .reg-input, .reg-select {
+    background: rgba(255,255,255,0.03); border: 1px solid var(--border); color: var(--bone);
+    font-family: 'Oswald', sans-serif; font-size: 0.95rem; padding: 0.7rem 0.9rem;
+    border-radius: 2px; width: 100%; transition: border-color 0.2s;
+  }
+  .reg-input:focus, .reg-select:focus { outline: none; border-color: var(--blood-bright); }
+  .reg-select { cursor: pointer; }
+  .reg-radio-group, .reg-check-group { display: flex; flex-direction: column; gap: 0.65rem; }
+  .reg-radio, .reg-check {
+    display: flex; align-items: flex-start; gap: 0.6rem; cursor: pointer;
+    font-family: 'Oswald', sans-serif; font-weight: 300; font-size: 0.85rem;
+    color: rgba(245,240,232,0.78); line-height: 1.5;
+  }
+  .reg-radio input, .reg-check input { margin-top: 0.2rem; accent-color: var(--blood-bright); flex-shrink: 0; }
+  .reg-scale-row { display: flex; align-items: center; gap: 1rem; }
+  .reg-scale-row input[type=range] { flex: 1; accent-color: var(--blood-bright); }
+  .reg-scale-val { font-family: 'Bebas Neue', sans-serif; font-size: 1.7rem; color: var(--gold); min-width: 2ch; text-align: center; }
+  .reg-scale-ends { display: flex; justify-content: space-between; font-family: 'Cutive Mono', monospace; font-size: 0.6rem; color: var(--muted); margin-top: 0.3rem; }
+  .honeypot { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+  .reg-submit {
+    margin-top: 0.6rem; font-family: 'Bebas Neue', sans-serif; font-size: 1.2rem; letter-spacing: 0.15em;
+    padding: 0.9rem 2.6rem; border: 2px solid var(--blood-bright); color: var(--bone); background: transparent;
+    cursor: pointer; position: relative; overflow: hidden; transition: color 0.3s;
+  }
+  .reg-submit::before { content: ''; position: absolute; inset: 0; background: var(--blood-bright); transform: translateX(-101%); transition: transform 0.3s ease; z-index: -1; }
+  .reg-submit:hover::before { transform: translateX(0); }
+  .reg-submit:disabled { opacity: 0.5; cursor: not-allowed; }
+  .reg-note { font-family: 'Oswald', sans-serif; font-weight: 300; font-size: 0.75rem; color: var(--muted); margin-top: 1rem; line-height: 1.5; }
+  .reg-msg { margin-top: 1rem; padding: 0.8rem 1rem; font-family: 'Cutive Mono', monospace; font-size: 0.75rem; display: none; line-height: 1.5; }
+  .reg-msg.err { display: block; border: 1px solid var(--red-dim); background: rgba(255,34,34,0.08); color: #ff8a8a; }
+  .reg-success { display: none; text-align: center; padding: 2.6rem 1.5rem; border: 1px solid var(--blood); background: linear-gradient(135deg, rgba(139,0,0,0.18), rgba(13,13,13,0.9)); margin-top: 2.5rem; }
+  .reg-success.show { display: block; }
+  .reg-success h3 { font-family: 'Bebas Neue', sans-serif; font-size: 2.6rem; color: var(--gold); letter-spacing: 0.05em; margin-bottom: 0.6rem; }
+  .reg-success p { font-family: 'Oswald', sans-serif; font-weight: 300; color: rgba(245,240,232,0.72); line-height: 1.6; max-width: 480px; margin: 0 auto 1.6rem; }
+  .reg-pay-btn { display: inline-block; font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; letter-spacing: 0.12em; padding: 0.95rem 2.8rem; background: var(--blood); color: var(--bone); text-decoration: none; border: 2px solid var(--blood); transition: background 0.2s, border-color 0.2s; }
+  .reg-pay-btn:hover { background: var(--blood-bright); border-color: var(--blood-bright); }
+  .reg-pay-note { font-family: 'Cutive Mono', monospace; font-size: 0.65rem; color: var(--muted); margin-top: 1.1rem; }
+  .reg-paypal { max-width: 360px; margin: 0.5rem auto 0; min-height: 45px; }
 </style>
+<!-- PayPal Hosted Buttons SDK -->
+<script src="https://www.paypal.com/sdk/js?client-id=BAArmpiix8Cr022NGnEo6owBkeBIYqog3ziCIS9j8Vf-dxbmlfraU3BuHv3oCSg2jXpudGR7jmbqkRttHY&components=hosted-buttons&enable-funding=venmo&currency=USD"></script>
 </head>
 <body>
 
@@ -900,6 +958,7 @@
     <li><a href="/" class="nav-home">⛧ Unknown Gathering</a></li>
     <li><a href="#rules">Rules</a></li>
     <li><a href="#prize">Prize</a></li>
+    <li><a href="#register" class="nav-register">Register</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
 </nav>
@@ -928,7 +987,7 @@
     </div>
   </div>
   <div class="hero-cta">
-    <a href="#about" class="btn">Enter the Nightmare</a>
+    <a href="#register" class="btn">Register Your Film</a>
     <a href="#rules" class="btn btn-ghost">Read the Rules</a>
   </div>
 </header>
@@ -1034,6 +1093,91 @@
       A $50 entry fee is required per film submission. Entry fees support venue costs, event operations, screening expenses, awards, marketing, and filmmaker programming.<br><br>
       Entry fees are non-refundable. If the event is canceled due to unforeseen circumstances, organizers may issue refunds or credits at their discretion.
     </div>
+  </div>
+</section>
+
+<div class="full-width-divider"></div>
+
+<!-- REGISTER -->
+<section id="register" class="reveal">
+  <div class="section-label">// Enter Your Film</div>
+  <div class="section-title">REGISTER</div>
+  <div class="divider"></div>
+  <p class="reg-intro">Register your terrifying masterpiece for a chance to win $250 and an official screening at The Unknown Gathering. Registration is Step 1 — the $50 entry fee is paid right after you submit, and your spot isn't confirmed until it clears.</p>
+
+  <form id="registerForm" class="reg-form" action="register.php" method="POST" novalidate>
+    <div class="honeypot" aria-hidden="true"><label>Leave this empty <input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
+
+    <div class="reg-grid">
+      <div class="reg-field full">
+        <label class="reg-label" for="film_title">Film Title <span class="req">*</span></label>
+        <input class="reg-input" id="film_title" name="film_title" type="text" required>
+      </div>
+
+      <div class="reg-field full">
+        <span class="reg-label">Track <span class="req">*</span></span>
+        <div class="reg-radio-group">
+          <label class="reg-radio"><input type="radio" name="track" value="Track One: Horrify a Classic" required> Track One — Horrify a Classic</label>
+          <label class="reg-radio"><input type="radio" name="track" value="Track Two: Horrify an Urban Legend"> Track Two — Horrify an Urban Legend</label>
+        </div>
+      </div>
+
+      <div class="reg-field">
+        <label class="reg-label" for="team_name">Filmmaker / Team Name <span class="req">*</span></label>
+        <input class="reg-input" id="team_name" name="team_name" type="text" required>
+      </div>
+      <div class="reg-field">
+        <label class="reg-label" for="heard">How did you hear about HORRIFY? <span class="req">*</span></label>
+        <select class="reg-select" id="heard" name="heard" required>
+          <option value="" disabled selected>Select one…</option>
+          <option>Social Media (Instagram, X, Facebook, etc.)</option>
+          <option>Film Festival Circuit / Website</option>
+          <option>Recommendation from a Friend/Colleague</option>
+          <option>Online Ad / Article</option>
+          <option>Television</option>
+          <option>Podcast</option>
+          <option>Other</option>
+        </select>
+      </div>
+
+      <div class="reg-field">
+        <label class="reg-label" for="contact_email">Primary Contact Email <span class="req">*</span></label>
+        <input class="reg-input" id="contact_email" name="contact_email" type="email" required>
+      </div>
+      <div class="reg-field">
+        <label class="reg-label" for="contact_phone">Primary Contact Phone <span class="req">*</span></label>
+        <input class="reg-input" id="contact_phone" name="contact_phone" type="tel" required>
+      </div>
+
+      <div class="reg-field full">
+        <label class="reg-label" for="scale">Terrifying Scale <span class="req">*</span></label>
+        <div class="reg-scale-row">
+          <input type="range" id="scale" name="scale" min="1" max="10" value="5" oninput="document.getElementById('scaleVal').textContent=this.value">
+          <span class="reg-scale-val" id="scaleVal">5</span>
+        </div>
+        <div class="reg-scale-ends"><span>1 — Mildly unsettling</span><span>10 — Soul-shatteringly horrifying</span></div>
+      </div>
+
+      <div class="reg-field full">
+        <span class="reg-label">Agreement &amp; Certification <span class="req">*</span></span>
+        <div class="reg-check-group">
+          <label class="reg-check"><input type="checkbox" name="agree_rights" value="yes" required> I certify that I/my team own or have secured all rights to the submitted film and everything in it.</label>
+          <label class="reg-check"><input type="checkbox" name="agree_terms" value="yes" required> I have read and accept the <a href="#rules" style="color:var(--gold)">competition rules &amp; terms</a>.</label>
+          <label class="reg-check"><input type="checkbox" name="agree_accuracy" value="yes" required> I certify that all information provided here is accurate.</label>
+        </div>
+      </div>
+    </div>
+
+    <div class="reg-msg err" id="regError"></div>
+    <button type="submit" class="reg-submit" id="regSubmit">Submit Registration</button>
+    <p class="reg-note">Step 1 of 2. After submitting, you'll pay the $50 entry fee. Your registration isn't complete until the fee is paid.</p>
+  </form>
+
+  <div class="reg-success" id="regSuccess">
+    <h3>Registration Received</h3>
+    <p>Your film is in the book. One last ritual: pay your <strong>$50 entry fee</strong> to lock in your submission. Your spot isn't confirmed until the fee clears.</p>
+    <div id="paypal-container-CPJWB99YX4YN6" class="reg-paypal"></div>
+    <p class="reg-pay-note">Pay securely via PayPal or Venmo. Questions? Email hello@roguemedianetwork.com</p>
   </div>
 </section>
 
@@ -1255,6 +1399,52 @@ pwCard.addEventListener('keydown', (e) => {
 pwClose.addEventListener('click', closePaperwork);
 pwModal.addEventListener('click', (e) => { if (e.target === pwModal) closePaperwork(); });
 document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closePaperwork(); });
+
+// Registration form
+function renderPayPalButton() {
+  if (window.__hbRendered) return;
+  if (window.paypal && window.paypal.HostedButtons) {
+    window.__hbRendered = true;
+    paypal.HostedButtons({ hostedButtonId: 'CPJWB99YX4YN6' }).render('#paypal-container-CPJWB99YX4YN6');
+  }
+}
+const regForm = document.getElementById('registerForm');
+if (regForm) {
+  regForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const btn = document.getElementById('regSubmit');
+    const errBox = document.getElementById('regError');
+    errBox.style.display = 'none';
+    if (!regForm.checkValidity()) { regForm.reportValidity(); return; }
+    btn.disabled = true;
+    btn.textContent = 'Submitting…';
+    try {
+      const res = await fetch(regForm.action, {
+        method: 'POST',
+        headers: { 'X-Requested-With': 'fetch' },
+        body: new FormData(regForm)
+      });
+      const data = await res.json().catch(() => ({ ok: res.ok }));
+      if (res.ok && data.ok) {
+        regForm.style.display = 'none';
+        const ok = document.getElementById('regSuccess');
+        ok.classList.add('show');
+        ok.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        renderPayPalButton();
+      } else {
+        errBox.textContent = (data && data.error) ? data.error : 'Something went wrong. Please try again.';
+        errBox.style.display = 'block';
+        btn.disabled = false;
+        btn.textContent = 'Submit Registration';
+      }
+    } catch (err) {
+      errBox.textContent = 'Network error — please check your connection and try again.';
+      errBox.style.display = 'block';
+      btn.disabled = false;
+      btn.textContent = 'Submit Registration';
+    }
+  });
+}
 </script>
 </body>
 </html>
